@@ -99,7 +99,7 @@ This page is part of a broader funnel:
 For feedback or collaboration:
 
 * Website: https://renoguide.net
-* (Add email later if needed)
+* hello@auditflow.space
 
 ---
 
