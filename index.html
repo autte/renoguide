@@ -12,9 +12,9 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Montreal Window Replacement Guide 2026 | Rebates, ROI & Provider Checklist</title>
+  <title>Canadian Renovation Rebate Calculator & Policy Guide | RenoGuide</title>
   <meta name="description"
-    content="Montreal and Quebec window and door replacement guide with Rénoclimat rebate estimates, energy savings ROI, provider recommendations, homeowner FAQ, and contract checklist.">
+    content="Free tools for Canadian homeowners: check Rénoclimat, Rénoplex, and provincial renovation rebates, estimate costs, and get an inspection checklist before signing. Available in English, French, and Chinese.">
   <meta name="author" content="Montreal Window Guide">
   <meta name="robots" content="index, follow">
   <meta name="keywords"
@@ -41,18 +41,23 @@
     "@graph": [
       {
         "@type": "WebSite",
-        "name": "Montreal Window Guide 2026",
-        "url": "https://renoguide.net",
-        "inLanguage": ["zh-CN", "en", "fr"],
-        "description": "Montreal window and door replacement guide with quote request, rebate estimator, ROI calculator, provider comparison, Q&A and checklist."
+        "name": "RenoGuide — Canadian Renovation Policy & Rebate Calculator",
+        "url": "https://www.renoguide.net",
+        "inLanguage": ["en", "fr", "zh"],
+        "description": "Tools and guides for Canadian homeowners: renovation rebate eligibility, cost estimation, and contractor checklists by province.",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://www.renoguide.net/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
       },
       {
         "@type": "SoftwareApplication",
-        "name": "Montreal Window Rebate and ROI Calculator",
+        "name": "Quebec Window Rebate & ROI Calculator",
         "applicationCategory": "FinanceApplication",
         "operatingSystem": "Web",
-        "url": "https://renoguide.net#calc",
-        "description": "A web calculator that estimates rough Rénoclimat rebates, annual energy savings and payback period for window and door replacement projects in Montreal.",
+        "url": "https://www.renoguide.net",
+        "description": "Free calculator to estimate Rénoclimat rebates, annual energy savings, and payback period for window replacement in Quebec.",
         "offers": {
           "@type": "Offer",
           "price": "0",
@@ -62,6 +67,46 @@
       {
         "@type": "FAQPage",
         "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How much is the Rénoclimat rebate per window in Quebec?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "$150 per rough opening, with a pre-work evaluation required before any installation begins."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is Rénoplex and how does it differ from Rénoclimat?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Rénoplex is Quebec's energy renovation program for smaller home upgrades and ventilation improvements, while Rénoclimat focuses on comprehensive energy evaluations and retrofit projects. Rénoclimat requires a pre-work assessment and post-work verification for rebate eligibility, while Rénoplex has different scope and eligibility for specific efficiency measures."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What renovation programs exist by Canadian province?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Different provinces offer different programs: Quebec has Rénoclimat and Rénoplex, Ontario offers grants and utility rebates such as Canada Greener Homes, British Columbia has CleanBC Better Homes, and Alberta has various home improvement rebate programs. Program names, eligibility and incentives vary by province and by the type of energy-efficient renovation."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What should I check before signing a window replacement contract?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Confirm product specifications, installation scope, warranty terms, payment schedule, permit responsibilities, Rénoclimat eligibility, and change-order rules before signing."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need to book Rénoclimat before or after window replacement?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Before. The initial energy evaluation must be completed before any work starts or you lose the rebate entirely."
+            }
+          },
           {
             "@type": "Question",
             "name": "Do I need a permit for same-size window replacement in Montreal?",
@@ -1268,9 +1313,9 @@
       margin-bottom: 6px
     }
 
-    /* Montreal-only mode: city selector is hidden. */
+    /* City selector is visible by default. */
     #citySelector {
-      display: none !important;
+      display: inline-flex !important;
     }
 
     /* Show all spreadsheet stories in Q&A instead of sliding only a few cards. */
@@ -1488,8 +1533,12 @@
       <div class="hero-top-row">
         <div class="lang"><button data-lang="zh">中文</button><button class="active" data-lang="en">EN</button><button
             data-lang="fr">FR</button></div>
-        <div class="city" id="citySelector" style="display:none"><button class="active"
-            data-city="montreal">Montréal</button></div>
+        <div class="city" id="citySelector">
+          <button class="active" data-city="montreal">Montréal</button>
+          <button data-city="toronto">Toronto</button>
+          <button data-city="vancouver">Vancouver</button>
+          <button data-city="calgary">Calgary</button>
+        </div>
       </div>
       <div class="eyebrow" data-i="eyebrow">Montreal Window Guide · 2026</div>
       <h1 data-i="h1">Montreal <em>Window Replacement Guide</em><br>Quotes, Rebates & Inspection Checklist</h1>
@@ -2133,9 +2182,9 @@
     };
 
     function setCity(city) {
-      currentCity = 'montreal';
+      currentCity = city;
       document.querySelectorAll('.city button').forEach(function (b) {
-        b.classList.toggle('active', b.dataset.city === 'montreal');
+        b.classList.toggle('active', b.dataset.city === city);
       });
       updateRebateBanner();
       renderProviders();
@@ -2222,7 +2271,7 @@
       // Update match note
       var note = document.getElementById('matchNote');
       if (note) {
-        var cityLabel = 'Montréal';
+        var cityLabel = currentCity === 'toronto' ? 'Toronto' : currentCity === 'vancouver' ? 'Vancouver' : currentCity === 'calgary' ? 'Calgary' : 'Montréal';
         note.textContent = t('sorted').replace('{area}', cityLabel).replace('{project}', ptypeVal);
       }
       updateSelected();
