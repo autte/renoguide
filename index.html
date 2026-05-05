@@ -2181,6 +2181,13 @@
       }
     };
 
+    const CITY_DISPLAY_NAMES = {
+      montreal: { en: 'Montreal', fr: 'Montréal' },
+      toronto: { en: 'Toronto', fr: 'Toronto' },
+      vancouver: { en: 'Vancouver', fr: 'Vancouver' },
+      calgary: { en: 'Calgary', fr: 'Calgary' }
+    };
+
     function setCity(city) {
       currentCity = city;
       document.querySelectorAll('.city button').forEach(function (b) {
@@ -2188,6 +2195,24 @@
       });
       updateRebateBanner();
       renderProviders();
+
+      // Update titles based on selected city
+      var display = CITY_DISPLAY_NAMES[city] || CITY_DISPLAY_NAMES.montreal;
+      I18N.en.h1 = display.en + ' <em>Window Replacement Guide</em><br>Quotes, Rebates & Inspection Checklist';
+      I18N.en.eyebrow = display.en + ' Window Guide · 2026';
+      I18N.en.title = display.en + ' Window Guide 2026';
+      I18N.fr.h1 = 'Guide <em>Portes et Fenêtres ' + display.fr + '</em><br>Soumissions, subventions et inspection';
+      I18N.fr.eyebrow = 'Guide Portes et Fenêtres ' + display.fr + ' · 2026';
+      I18N.fr.title = 'Guide Portes et Fenêtres ' + display.fr + ' 2026';
+
+      // Update meta tags
+      var ogTitle = document.querySelector('meta[property="og:title"]');
+      if (ogTitle) ogTitle.content = display.en + ' Window Replacement Guide 2026 | Rebates, ROI & Checklist';
+      var twitterTitle = document.querySelector('meta[name="twitter:title"]');
+      if (twitterTitle) twitterTitle.content = display.en + ' Window Replacement Guide 2026 | Rebates, ROI & Checklist';
+
+      // Re-apply language to update titles
+      applyLang();
     }
 
     function updateRebateBanner() {
