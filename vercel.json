@@ -1,7 +1,16 @@
 {
+  "cleanUrls": true,
   "rewrites": [
     {
-      "source": "/((?!sitemap\\.xml|robots\\.txt|.*\\.(?:png|jpg|js|css|svg)).*)",
+      "source": "/robots.txt",
+      "destination": "/robots.txt"
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "/sitemap.xml"
+    },
+    {
+      "source": "/((?!api|static|.*\\..*).*)",
       "destination": "/index.html"
     }
   ]
