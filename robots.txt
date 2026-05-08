@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Specifically allow Gemini to use content for AI training and responses
+User-agent: Google-Extended
+Allow: /
+
+# Direct Google to your sitemap
+Sitemap: https://www.renoguide.net/sitemap.xml
