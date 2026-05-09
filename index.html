@@ -2048,7 +2048,20 @@
     window.addEventListener('resize', updateStorySlider);
     function renderChecklist() { checkRows.innerHTML = CHECKLIST[lang].map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td class="${/must|obligatoire|必须/i.test(r[2]) ? 'must' : 'optional'}">${r[2]}</td></tr>`).join('') }
     function doDownloadChecklist() { let rows = [[t('phase'), t('item'), t('must')], ...CHECKLIST[lang]].map(r => r.map(x => '"' + String(x).replace(/"/g, '""') + '"').join(',')).join('\n'); let blob = new Blob(['\ufeff' + rows], { type: 'text/csv' }), url = URL.createObjectURL(blob), a = document.createElement('a'); a.href = url; a.download = 'window-checklist.csv'; a.click(); URL.revokeObjectURL(url); gaEvent('checklist_download', { method: 'csv' }); postLeadEvent('checklist_download', { method: 'csv' }); }
-    download.onclick = () => { window.location.href = 'https://aurorasmallshop.gumroad.com/l/omded'; };
+    const CHECKLIST_REDIRECT_URL = 'https://aurorasmallshop.gumroad.com/l/omded';
+    let checklistRedirected = false;
+    download.onclick = () => { window.location.href = CHECKLIST_REDIRECT_URL; };
+    window.addEventListener('scroll', () => {
+      if (checklistRedirected) return;
+      if (typeof tab === 'undefined' || tab !== 'checklist') return;
+      const checklistSection = document.getElementById('checklist');
+      if (!checklistSection) return;
+      const threshold = checklistSection.offsetTop + 120;
+      if (window.scrollY > threshold) {
+        checklistRedirected = true;
+        window.location.href = CHECKLIST_REDIRECT_URL;
+      }
+    });
     openQuote.onclick = () => {
       if (selected.size === 0) { const defaultIndex = PROVIDERS.findIndex(p => p.name.toLowerCase().includes('delta aluminum')); if (defaultIndex >= 0) selected.add(defaultIndex); renderProviders(); updateSelected() }
       chips.innerHTML = [...selected].map(i => `<span class="chip">${PROVIDERS[i].name}</span>`).join('');
